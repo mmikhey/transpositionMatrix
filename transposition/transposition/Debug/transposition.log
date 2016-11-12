@@ -1,8 +1,6 @@
-﻿Build started 12.11.2016 14:17:10.
+﻿Build started 12.11.2016 15:55:36.
      1>Project "D:\matrix_repo\transpositionMatrix\transposition\transposition\transposition.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\VS13\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\transposition.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
          D:\VS13\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\transposition.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt transposition.cpp
          transposition.cpp
      1>d:\matrix_repo\transpositionmatrix\transposition\transposition\transposition.cpp(73): warning C4018: '<' : signed/unsigned mismatch
@@ -17,4 +15,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:14.01
+Time Elapsed 00:00:13.97
