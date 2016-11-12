@@ -150,14 +150,14 @@ int main(int ARGC, char** ARGV)
 
 		for (int row1 = 0; row1 < n; row1++)
 		{
-			for (int row2 = 0; row2 < n; row2++)
+			for (int row2 = row1; row2 < n; row2++)
 			{
 				if (row1 != row2)
 				{
 					int local_criterion = TranspositionRow(row1, row2, matrix, transposition_matrix);
 				    for (int col1 = 0; col1 < n; col1++)
 				    {
-					    for (int col2 = 0; col2 < n; col2++)
+					    for (int col2 = col1; col2 < n; col2++)
 					    {
 							if (col1 != col2)
 							{
