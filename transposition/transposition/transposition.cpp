@@ -8,6 +8,7 @@
 #include <string>
 #include <iomanip>
 #include <fstream>
+#include <ctime>
 
 using std::size_t;
 
@@ -18,22 +19,21 @@ void swap(std::vector< int >& transposition, int k, int i)
 	transposition[i] = tmp;
 }
 
-void enumeration(std::vector< std::vector<int> > matrix, std::vector< int >& transposition, int k, int n, int& criterion, std::vector< int >& result_transposition, int& tmp)
+void enumeration(std::vector< std::vector<int> > matrix, std::vector< int >& transposition, int k, int n, int& criterion, std::vector< int >& result_transposition)
 {
 	for (int i = k; i < n; i++)
 	{
 		swap(transposition, k, i);
-		enumeration(matrix, transposition, k + 1, n, criterion, result_transposition,tmp);
+		enumeration(matrix, transposition, k + 1, n, criterion, result_transposition);
 		swap(transposition, k, i);
 	}
 	if (k == n - 1) 
 	{
-		for (int i = 0; i < transposition.size(); i++)
+		/*for (int i = 0; i < transposition.size(); i++)
 		{
 			std::cout << transposition[i];
 		}
-		std::cout << "\n";
-		tmp += 1;
+		std::cout << "\n";*/
 		int local_criterion = 0;
 		for (int i = 0; i < matrix.size(); i++)
 		{
@@ -67,11 +67,14 @@ int main(int ARGC, char** ARGV)
 		
 		for (int i = 0; i < n; ++i)
 		{
+			srand(time(0) | clock());
 			for (int j = 0; j < n; ++j)
 			{
 				int value= rand()%2;
 				matrix.at(i).push_back(value);
+				//srand(time(0)|clock());
 			}
+			
 		}
 
 
@@ -81,9 +84,14 @@ int main(int ARGC, char** ARGV)
 			result_transposition[i]=i;
 		}
 		int tmp = 0;
-		enumeration(matrix, transposition, 0, n, criterion,result_transposition,tmp);
-		int t = criterion;
-
+		enumeration(matrix, transposition, 0, n, criterion,result_transposition);
+		
+		std::cout <<"criterion = "<< criterion << "\n";
+		for (int i = 0; i < transposition.size(); i++)
+		{
+		std::cout << result_transposition[i];
+		}
+		std::cout << "\n";
 
 	return 0;
 }
