@@ -19,6 +19,25 @@ void swap(std::vector< int >& transposition, int k, int i)
 	transposition[i] = tmp;
 }
 
+bool NextPermutation(std::vector< int >& transposition, int n){
+	for ( int i = n-2; i >= 0; i--){
+		if (transposition[i] < transposition[i + 1]){
+			int min_val = transposition[i + 1]:
+			int	min_id = i + 1;
+			for (int j = i + 2; j < n; j++) {
+				if (transposition[j] > transposition[i] && transposition[j] < min_val){
+					min_val = transposition[j];
+					min_id = j;
+				}
+			}
+			swap(transposition,i,min_id);
+			sort(transposition.begin() + i + 1, transposition.end());
+			return 1;
+		}
+	}
+	return 0;
+}
+
 void enumeration(std::vector< std::vector<int> > matrix, std::vector< int >& transposition, int k, int n, int& criterion, std::vector< int >& result_transposition)
 {
 	for (int i = k; i < n; i++)
@@ -84,8 +103,13 @@ int main(int ARGC, char** ARGV)
 			result_transposition[i]=i;
 		}
 		int tmp = 0;
-		enumeration(matrix, transposition, 0, n, criterion,result_transposition);
+		/*enumeration(matrix, transposition, 0, n, criterion,result_transposition);*/
 		
+		while (NextPermutation(transposition, n)){
+			for (int i = 0; i < n; ++i) std::cout << transposition[i] << " ";
+			std::cout << std::endl;
+		}
+
 		std::cout <<"criterion = "<< criterion << "\n";
 		for (int i = 0; i < transposition.size(); i++)
 		{
