@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <fstream>
 #include <ctime>
+#include <algorithm>
 
 using std::size_t;
 
@@ -19,10 +20,10 @@ void swap(std::vector< int >& transposition, int k, int i)
 	transposition[i] = tmp;
 }
 
-bool NextPermutation(std::vector< int >& transposition, int n){
+bool NextPermutation(std::vector< std::vector<int> > matrix, std::vector< int >& transposition, int n, int& criterion, std::vector< int >& result_transposition){
 	for ( int i = n-2; i >= 0; i--){
 		if (transposition[i] < transposition[i + 1]){
-			int min_val = transposition[i + 1]:
+			int min_val = transposition[i + 1];
 			int	min_id = i + 1;
 			for (int j = i + 2; j < n; j++) {
 				if (transposition[j] > transposition[i] && transposition[j] < min_val){
@@ -32,44 +33,26 @@ bool NextPermutation(std::vector< int >& transposition, int n){
 			}
 			swap(transposition,i,min_id);
 			sort(transposition.begin() + i + 1, transposition.end());
+			int local_criterion = 0;
+			for (int i = 0; i < matrix.size(); i++)
+			{
+				for (int j = 0; j < matrix.at(i).size(); j++)
+				{
+					local_criterion += matrix[i][j] * matrix[transposition[i]][transposition[j]];
+				}
+			}
+			if (local_criterion >= criterion)
+			{
+				criterion = local_criterion;
+				for (int i = 0; i < transposition.size(); i++)
+				{
+					result_transposition[i] = transposition[i];
+				}
+			}
 			return 1;
 		}
 	}
 	return 0;
-}
-
-void enumeration(std::vector< std::vector<int> > matrix, std::vector< int >& transposition, int k, int n, int& criterion, std::vector< int >& result_transposition)
-{
-	for (int i = k; i < n; i++)
-	{
-		swap(transposition, k, i);
-		enumeration(matrix, transposition, k + 1, n, criterion, result_transposition);
-		swap(transposition, k, i);
-	}
-	if (k == n - 1) 
-	{
-		/*for (int i = 0; i < transposition.size(); i++)
-		{
-			std::cout << transposition[i];
-		}
-		std::cout << "\n";*/
-		int local_criterion = 0;
-		for (int i = 0; i < matrix.size(); i++)
-		{
-			for (int j = 0; j < matrix.at(i).size(); j++)
-			{
-				local_criterion += matrix[i][j] * matrix[transposition[i]][transposition[j]];
-			}
-		}
-		if (local_criterion>criterion)
-		{
-			criterion = local_criterion;
-			for (int i = 0; i < transposition.size(); i++)
-			{
-				result_transposition[i] = transposition[i];
-			}
-		}
-	}
 }
 
 int main(int ARGC, char** ARGV)
@@ -102,12 +85,22 @@ int main(int ARGC, char** ARGV)
 			transposition[i]=i;
 			result_transposition[i]=i;
 		}
-		int tmp = 0;
-		/*enumeration(matrix, transposition, 0, n, criterion,result_transposition);*/
-		
-		while (NextPermutation(transposition, n)){
-			for (int i = 0; i < n; ++i) std::cout << transposition[i] << " ";
-			std::cout << std::endl;
+
+		for (int i = 0; i < matrix.size(); i++)
+		{
+			for (int j = 0; j < matrix.at(i).size(); j++)
+			{
+				criterion += matrix[i][j] * matrix[transposition[i]][transposition[j]];
+			}
+		}
+
+		while (NextPermutation(matrix,transposition, n,criterion,result_transposition)){
+			/*for (int i = 0; i < n; ++i)
+			{
+				std::cout << transposition[i] << " ";
+				
+			}
+			std::cout << std::endl;*/
 		}
 
 		std::cout <<"criterion = "<< criterion << "\n";
